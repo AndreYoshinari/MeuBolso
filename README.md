@@ -113,9 +113,6 @@ Na raiz do repositório:
 ```sh
 npm test
 ```
-
-Este README não registra percentual de cobertura. Rode o comando para ver o resultado atual.
-
 `npm run typecheck` executa `tsc --noEmit`. `npm run lint` executa o ESLint do Expo, que inclui o Prettier. `npm run format:check` confere só a formatação.
 
 No GitHub, `.github/workflows/ci.yml` instala dependências e roda typecheck, lint, formatação e testes em push para `main` e `develop`, e em pull request com uma dessas branches como destino.
@@ -151,38 +148,3 @@ EXPO_PUBLIC_EXCHANGE_API_URL=https://api.frankfurter.dev
 Se `EXPO_PUBLIC_EXCHANGE_API_URL` estiver vazio, o cliente de cotação continua usando `https://api.frankfurter.dev`. Preferência não é segredo e fica no SQLite. O Expo SecureStore fica reservado para um segredo de verdade, como um token opcional de API. O app atual não guarda nenhum.
 
 O workflow de CI define as mesmas duas variáveis públicas. Ele não lê um arquivo `.env` e não contém token.
-
-## Como gerar builds
-
-Um build de desenvolvimento, numa máquina que já tenha o SDK nativo:
-
-```sh
-npm run android
-npm run ios
-```
-
-No Windows, `npm run android` pode falhar ao compilar `react-native-worklets` se o Git e o sistema ainda impuserem o limite de 260 caracteres no caminho. Ligar caminhos longos, ou compilar a partir de uma pasta mais curta, é ajuste da máquina. Isso não está configurado neste repositório.
-
-Não há `eas.json` nem identificador de projeto na Expo. O workflow do GitHub não compila nem publica binário. Os passos para ligar o EAS depois, sem colocar token no YAML, estão em [`docs/ci.md`](docs/ci.md). O token de acesso da Expo, o keystore Android e o certificado Apple ficam fora do repositório.
-
-## Limitações conhecidas
-
-- O razão é só em reais. A cotação não converte um valor já gravado.
-- O arquivo do banco não é cifrado. No Android, `allowBackup` está desligado. No iOS, o app marca a pasta `Documents/SQLite` e os arquivos do banco como excluídos do backup ao abrir e ao ir para segundo plano.
-- As listas de lançamento, orçamento e categoria desenham o mês corrente num scroll. Elas não são virtualizadas.
-- A tela de design system só entra no navegador em desenvolvimento. Num bundle de produção essa rota volta para o início.
-- A versão do pacote npm em `package.json` é `0.0.1`. A versão mostrada em Ajustes vem de `app.config.ts` e é `1.0.0`.
-- Não há captura de tela no repositório. Veja [Capturas de tela](#capturas-de-tela).
-- A CI não gera binário nativo de release. Veja [Como gerar builds](#como-gerar-builds).
-
-## Roadmap
-
-Nada abaixo tem data. O escopo atual continua sendo uma pessoa, um aparelho e um razão offline.
-
-Ainda não fazem parte deste app, e não foram começados: várias contas, transferência entre contas, login, backup na nuvem como funcionalidade, importação de extrato e widget na tela inicial.
-
-Os buracos concretos já visíveis no repositório são: escolher uma licença, acrescentar capturas reais e ligar o EAS só depois que existirem a conta Expo e as credenciais das plataformas.
-
-## Licença
-
-Este repositório não inclui um arquivo de licença. Enquanto ele não existir, nenhuma licença de código aberto está concedida.
