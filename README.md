@@ -1,139 +1,139 @@
 # MeuBolso
 
-MeuBolso is a personal finance app for Android and iOS. One person, one device, offline. The ledger is in Brazilian reais. Exchange rates are informational and never convert a transaction.
+MeuBolso é um controle financeiro pessoal para Android e iOS. Uma pessoa, um aparelho, offline. O razão é em reais. A cotação é informativa e não converte lançamento.
 
-The interface is in Portuguese. Code names are in English.
+A interface está em português. Os nomes no código estão em inglês.
 
-## Objective
+## Objetivo
 
-Record income and expenses in integer cents, see the month on a dashboard, set a spending limit per expense category, and read a few reports from the same local database. Quotes from Frankfurter can be consulted when the network is available. They do not change the ledger.
+Registrar receita e despesa em centavos inteiros, ver o mês no início, definir um limite de gasto por categoria de despesa e ler alguns relatórios a partir do mesmo banco local. A cotação da Frankfurter pode ser consultada quando há rede. Ela não altera o razão.
 
-The product does not have accounts, transfers, sign-in, cloud sync, statement import, or a home-screen widget.
+O produto não tem contas, transferência, login, sincronização na nuvem, importação de extrato nem widget.
 
-## Screenshots
+## Capturas de tela
 
-There are no screen captures in this repository. The only images shipped with the app are the launcher assets:
+Não há captura de tela neste repositório. As únicas imagens entregues com o app são os ícones:
 
 - [`assets/icon.png`](assets/icon.png)
 - [`assets/adaptive-icon.png`](assets/adaptive-icon.png)
 
-Those are icons, not screens of the dashboard, transactions, budgets, or reports. Add real captures under `docs/screenshots/` before treating this page as a visual portfolio.
+São ícones, não telas do início, dos lançamentos, dos orçamentos ou dos relatórios. Coloque capturas reais em `docs/screenshots/` antes de tratar esta página como um portfólio visual.
 
-## Features
+## Funcionalidades
 
-Implemented in the current source:
+O que o código atual faz:
 
-- **Dashboard.** Greeting by the hour, optional display name, total balance, income and expenses of the selected civil month, recent transactions, and charts fed by a series already aggregated in SQL.
-- **Transactions.** Create, edit, delete, and open a transaction. Fields: description, amount, income or expense, category, civil date, optional notes. Amounts are typed as cents and shown in `pt-BR` reais. The history filters by month, type, and category, and searches the description.
-- **Categories.** Thirteen default categories, plus custom ones with icon and color. A default category cannot be deleted. A category in use by a transaction or a budget cannot be deleted, and its type cannot change while it is in use. The list shows how many transactions use each category.
-- **Budgets.** One monthly limit per expense category. The card shows the limit, the amount spent, what remains, a progress bar, and the percent. Spending counts only expenses of that category in that civil month. At 80 percent the status is near the limit. At 100 percent it is reached, and past the limit it is exceeded.
-- **Reports.** One filter updates every chart: current month, previous month, last 3 months, last 6 months, the current calendar year, or a custom range of at most 24 months. The report has income versus expenses, expenses by category, the running balance, a comparison with the previous month when the range is a single month, and the top five spending categories. Anything past the fifth is folded into “Outras”.
-- **Settings.** Display name (up to 40 characters), dark or light theme, and a fixed currency label of Real (BRL). Local notifications can be turned on, including a monthly reminder on a day from 1 to 28. Clearing local data asks for confirmation, removes transactions, budgets, quotes, and custom categories, and restores default preferences. Default categories stay.
-- **Quotes.** Pick two different currencies and read a Frankfurter rate, including a historical date. The screen shows the quoted date and when the rate was fetched.
+- **Início.** Saudação pela hora, nome de exibição opcional, saldo total, receitas e despesas do mês civil selecionado, lançamentos recentes e gráficos alimentados por uma série já agregada no SQL.
+- **Lançamentos.** Criar, editar, apagar e abrir um lançamento. Campos: descrição, valor, receita ou despesa, categoria, data civil e observação opcional. O valor é digitado em centavos e exibido em reais, no formato `pt-BR`. O histórico filtra por mês, tipo e categoria, e pesquisa a descrição.
+- **Categorias.** Treze categorias padrão, além das personalizadas, com ícone e cor. Categoria padrão não é apagada. Categoria usada em lançamento ou orçamento não é apagada, e o tipo dela não muda enquanto estiver em uso. A lista mostra quantos lançamentos usam cada categoria.
+- **Orçamentos.** Um limite mensal por categoria de despesa. O cartão mostra o limite, o valor usado, o que resta, uma barra de progresso e o percentual. Entra na conta só a despesa daquela categoria naquele mês civil. Aos 80% o estado é perto do limite. Aos 100% o limite foi atingido. Acima disso, foi ultrapassado.
+- **Relatórios.** Um filtro atualiza todos os gráficos: mês atual, mês anterior, últimos 3 meses, últimos 6 meses, o ano civil corrente ou um período personalizado de no máximo 24 meses. O relatório tem receitas contra despesas, despesas por categoria, saldo acumulado, comparação com o mês anterior quando o intervalo é um único mês, e as cinco categorias que mais gastam. O que passa da quinta entra em “Outras”.
+- **Ajustes.** Nome de exibição (até 40 caracteres), tema escuro ou claro, e o rótulo fixo Real (BRL). Dá para ligar notificação local, inclusive um lembrete mensal em um dia de 1 a 28. Limpar os dados locais pede confirmação, apaga lançamentos, orçamentos, cotações e categorias personalizadas, e restaura as preferências padrão. As categorias padrão permanecem.
+- **Cotações.** Escolher duas moedas diferentes e ler uma taxa da Frankfurter, inclusive de uma data passada. A tela mostra a data da cotação e quando ela foi obtida.
 
-## Technologies
+## Tecnologias
 
-| Piece         | Choice                                                          |
-| ------------- | --------------------------------------------------------------- |
-| App           | React Native 0.88 and Expo SDK 58                               |
-| Navigation    | Expo Router, file-based                                         |
-| Language      | TypeScript in `strict` mode                                     |
-| Server state  | TanStack Query, in memory only                                  |
-| Preferences   | Zustand, hydrated from SQLite                                   |
-| Forms         | React Hook Form and Zod                                         |
-| Database      | Expo SQLite, file `meubolso.db`                                 |
-| Charts        | React Native Gifted Charts, with the series prepared beforehand |
-| Notifications | Expo Notifications, local only                                  |
-| Tests         | Jest with `jest-expo` and React Native Testing Library          |
-| Node.js       | 22.11 or newer                                                  |
+| Peça               | Escolha                                                         |
+| ------------------ | --------------------------------------------------------------- |
+| App                | React Native 0.88 e Expo SDK 58                                 |
+| Navegação          | Expo Router, por arquivos                                       |
+| Linguagem          | TypeScript em modo `strict`                                     |
+| Estado de servidor | TanStack Query, só em memória                                   |
+| Preferências       | Zustand, hidratado a partir do SQLite                           |
+| Formulários        | React Hook Form e Zod                                           |
+| Banco              | Expo SQLite, arquivo `meubolso.db`                              |
+| Gráficos           | React Native Gifted Charts, com a série pronta antes do desenho |
+| Notificações       | Expo Notifications, só locais                                   |
+| Testes             | Jest com `jest-expo` e React Native Testing Library             |
+| Node.js            | 22.11 ou mais novo                                              |
 
-## Architecture
+## Arquitetura
 
-Routes in `app/` compose a screen and read params. They do not run SQL or validate a form.
+As rotas em `app/` compõem a tela e leem os parâmetros. Elas não executam SQL nem validam formulário.
 
-Each feature under `src/features/` keeps its components, hooks, Zod schema, and presentation together. Domain rules and use cases live in `src/domain/`. SQL lives in `src/database/`. Money, civil dates, and other pure calculations live in `src/lib/`.
+Cada funcionalidade em `src/features/` reúne componentes, hooks, schema Zod e apresentação. Regras e casos de uso ficam em `src/domain/`. O SQL fica em `src/database/`. Dinheiro, data civil e outros cálculos puros ficam em `src/lib/`.
 
-The database client exposes `run`, `get`, `all`, and `transaction`, so tests can substitute a double. Repositories are plain async functions. After a transaction changes, the app invalidates the transaction, dashboard, budget, and chart queries. Category and budget edits invalidate the queries that show them.
+O cliente de banco expõe `run`, `get`, `all` e `transaction`, para o teste usar um dublê. Repositório é função assíncrona, sem classe base. Depois de mudar um lançamento, o app invalida as queries de lançamento, início, orçamento e gráfico. Edição de categoria e de orçamento invalida as queries que os exibem.
 
-Money is an integer number of cents. A percentage is an integer number of basis points, where 10000 is 100 percent. Dates of transactions are civil dates `YYYY-MM-DD`. They are not converted to UTC.
+Dinheiro é um inteiro em centavos. Percentual é um inteiro em pontos-base: 10000 é 100%. A data do lançamento é civil, `AAAA-MM-DD`. Ela não é convertida para UTC.
 
-## Folder structure
+## Estrutura de pastas
 
 ```text
-app/                  Expo Router screens
-  (tabs)/             Home, transactions, budgets, reports
-  transactions/       New, detail, edit
-  categories/         List, new, edit
-  budgets/            New, edit
+app/                  telas do Expo Router
+  (tabs)/             início, lançamentos, orçamentos, relatórios
+  transactions/       novo, detalhe, edição
+  categories/         lista, nova, edição
+  budgets/            novo, edição
   settings.tsx
   rates.tsx
 src/
-  features/           UI and hooks by feature
-  components/         Shared interface components
-  database/           Client, migrations, SQL sources
-  domain/             Types, rules, use cases
-  services/           Frankfurter, notifications, preferences
-  stores/             Preferences and the in-memory session
-  lib/                Pure helpers
+  features/           interface e hooks por funcionalidade
+  components/         componentes usados em mais de uma tela
+  database/           cliente, migrações, SQL
+  domain/             tipos, regras, casos de uso
+  services/           Frankfurter, notificações, preferências
+  stores/             preferências e a sessão só em memória
+  lib/                funções puras
   providers/
   theme/
-docs/ci.md            What the GitHub workflow runs, and how EAS would be added
+docs/ci.md            o que o workflow do GitHub executa, e como o EAS entraria depois
 ```
 
-## Data model
+## Modelo de dados
 
-SQLite uses `STRICT` tables. Migrations only move forward, through `PRAGMA user_version` (versions 1 through 5). Foreign keys use `ON DELETE RESTRICT`.
+O SQLite usa tabelas `STRICT`. As migrações só avançam, com `PRAGMA user_version` (versões 1 a 5). Chave estrangeira usa `ON DELETE RESTRICT`.
 
-| Table            | Role                                                                                                                       |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `categories`     | `id`, `name`, `kind` (`income` or `expense`), `color`, `icon`, `is_system`                                                 |
-| `transactions`   | `id`, `description`, `kind`, `amount_cents` (integer, greater than zero), `category_id`, `occurred_on`, `note`, timestamps |
-| `budgets`        | One row per category and `year_month`, `limit_cents`, expense categories only                                              |
-| `exchange_rates` | `base`, `quote`, `rate` stored as decimal text, `quoted_on`, `fetched_at`                                                  |
-| `preferences`    | A single row, `id = 'local'`. Currency is constrained to `BRL`                                                             |
+| Tabela           | Papel                                                                                                                                      |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `categories`     | `id`, `name`, `kind` (`income` ou `expense`), `color`, `icon`, `is_system`                                                                 |
+| `transactions`   | `id`, `description`, `kind`, `amount_cents` (inteiro maior que zero), `category_id`, `occurred_on`, `note`, datas de criação e atualização |
+| `budgets`        | Uma linha por categoria e `year_month`, `limit_cents`, só categoria de despesa                                                             |
+| `exchange_rates` | `base`, `quote`, `rate` em texto decimal, `quoted_on`, `fetched_at`                                                                        |
+| `preferences`    | Uma única linha, `id = 'local'`. A moeda fica restrita a `BRL`                                                                             |
 
-Identifiers come from `crypto.randomUUID()`. Triggers keep a transaction’s kind equal to its category, block deleting a default category, and block changing the kind of a category that still has transactions or budgets.
+O identificador vem de `crypto.randomUUID()`. Gatilhos mantêm o tipo do lançamento igual ao da categoria, impedem apagar categoria padrão e impedem mudar o tipo de uma categoria que ainda tem lançamento ou orçamento.
 
-Default categories:
+Categorias padrão:
 
-- Income: Salário, Investimentos, Freelance, Outros ganhos
-- Expense: Alimentação, Moradia, Transporte, Saúde, Educação, Lazer, Compras, Contas, Outros gastos
+- Receita: Salário, Investimentos, Freelance, Outros ganhos
+- Despesa: Alimentação, Moradia, Transporte, Saúde, Educação, Lazer, Compras, Contas, Outros gastos
 
 ## Frankfurter
 
-Quotes are loaded from `https://api.frankfurter.dev`, or from `EXPO_PUBLIC_EXCHANGE_API_URL` when that variable is set. The response is parsed as `unknown` and checked with Zod before it is stored.
+A cotação vem de `https://api.frankfurter.dev`, ou de `EXPO_PUBLIC_EXCHANGE_API_URL` quando essa variável está definida. A resposta entra como `unknown` e passa pelo Zod antes de ser gravada.
 
-The request times out after 8 seconds. A successful quote is stored as decimal text, not as a floating-point number. The query is considered fresh for 6 hours. The screen always shows the date the rate refers to. A same-currency pair is rejected. A missing pair or date returns a fixed Portuguese message. The ledger is not converted.
+A consulta expira em 8 segundos. Uma cotação bem-sucedida fica em texto decimal, não em ponto flutuante. A query é considerada fresca por 6 horas. A tela sempre mostra a data a que a taxa se refere. Par da mesma moeda é recusado. Par ou data inexistente devolve uma mensagem fixa em português. O razão não é convertido.
 
-## Offline behavior
+## Funcionamento offline
 
-SQLite is the source of truth. Dashboard, history, filters, categories, budgets, and reports do not call the network. TanStack Query uses `networkMode: 'always'`, so those reads are not paused when the device is offline.
+O SQLite é a fonte da verdade. Início, histórico, filtros, categorias, orçamentos e relatórios não chamam a rede. O TanStack Query usa `networkMode: 'always'`, então essas leituras não pausam quando o aparelho está offline.
 
-If a quote request fails and a stored rate exists for the same pair and the same requested date, the app shows that stored rate. The title says there is no connection, and the text says it is not a live quote. A stored rate from another day is not reused. If nothing is stored, the screen says there is no saved quote. A 404 stays “quote unavailable”; it is not labeled as offline.
+Se a consulta da cotação falha e existe uma taxa salva para o mesmo par e a mesma data pedida, o app mostra essa taxa. O título diz que não há conexão, e o texto diz que não é uma cotação ao vivo. Taxa de outro dia não é reaproveitada. Se não houver nada salvo, a tela diz que não há cotação neste aparelho. Um 404 continua como cotação indisponível. Ele não é rotulado como falta de rede.
 
-Closing and reopening the database keeps transactions and budgets. A failed write does not erase the rows already stored. There is no sync with a server, and the app does not describe local data as synchronized.
+Fechar e abrir o banco de novo mantém lançamentos e orçamentos. Uma gravação que falha não apaga as linhas já existentes. Não há sincronização com servidor, e o app não descreve dado local como sincronizado.
 
-## Tests
+## Testes
 
-Tests use Jest and React Native Testing Library. Persistence tests use Node’s built-in SQLite (`node:sqlite`) through `--experimental-sqlite`. They do not open the native Expo database.
+Os testes usam Jest e React Native Testing Library. Os de persistência usam o SQLite embutido do Node (`node:sqlite`), com `--experimental-sqlite`. Eles não abrem o banco nativo do Expo.
 
-The suite currently has 149 `test()` cases in 49 files. They cover cent calculations, budget progress, transaction and category validation, use cases, the SQLite migration path, offline reopen, dashboard and report models, form schemas, filters, and loading or error states of the main screens. External calls to Frankfurter are mocked.
+A suíte tem hoje 149 casos `test()` em 49 arquivos. Eles cobrem cálculo em centavos, progresso de orçamento, validação de lançamento e categoria, casos de uso, o caminho de migração do SQLite, reabertura offline, modelos do início e dos relatórios, schemas de formulário, filtros e os estados de carregamento e erro das telas principais. A chamada à Frankfurter é simulada.
 
-Run them from the repository root:
+Na raiz do repositório:
 
 ```sh
 npm test
 ```
 
-This README does not record a coverage percentage. Run the command to see the current result.
+Este README não registra percentual de cobertura. Rode o comando para ver o resultado atual.
 
-`npm run typecheck` runs `tsc --noEmit`. `npm run lint` runs Expo ESLint, which includes Prettier. `npm run format:check` checks formatting only.
+`npm run typecheck` executa `tsc --noEmit`. `npm run lint` executa o ESLint do Expo, que inclui o Prettier. `npm run format:check` confere só a formatação.
 
-On GitHub, `.github/workflows/ci.yml` runs install, typecheck, lint, format, and tests for pushes to `main` and `develop`, and for pull requests into those branches.
+No GitHub, `.github/workflows/ci.yml` instala dependências e roda typecheck, lint, formatação e testes em push para `main` e `develop`, e em pull request com uma dessas branches como destino.
 
-## Run locally
+## Como executar localmente
 
-Requirements: Node.js 22.11 or newer, npm, and a local Android or iOS toolchain if you want a device build. iOS builds need a Mac.
+É preciso Node.js 22.11 ou mais novo, npm, e o conjunto nativo de Android ou iOS se a meta for um aparelho. O build de iOS precisa de um Mac.
 
 ```sh
 npm ci
@@ -141,59 +141,59 @@ cp .env.example .env
 npm start
 ```
 
-Then open the project in Expo Go or a development build. From the same directory:
+Depois abra o projeto no Expo Go ou num development build. Na mesma pasta:
 
 ```sh
 npm run android
 npm run ios
 ```
 
-`npm run ios` is for macOS.
+`npm run ios` é para macOS.
 
-## Configuration
+## Configurações necessárias
 
-Copy `.env.example` to `.env`. Both values are public. Neither is a secret.
+Copie `.env.example` para `.env`. Os dois valores são públicos. Nenhum é segredo.
 
 ```text
 EXPO_PUBLIC_APP_ENV=development
 EXPO_PUBLIC_EXCHANGE_API_URL=https://api.frankfurter.dev
 ```
 
-If `EXPO_PUBLIC_EXCHANGE_API_URL` is empty, the quote client still uses `https://api.frankfurter.dev`. Preferences are not secrets and stay in SQLite. Expo SecureStore is reserved for a real secret, such as an optional API token, and the current app does not store one.
+Se `EXPO_PUBLIC_EXCHANGE_API_URL` estiver vazio, o cliente de cotação continua usando `https://api.frankfurter.dev`. Preferência não é segredo e fica no SQLite. O Expo SecureStore fica reservado para um segredo de verdade, como um token opcional de API. O app atual não guarda nenhum.
 
-The CI workflow sets the same two public variables itself. It does not read a `.env` file and it does not contain tokens.
+O workflow de CI define as mesmas duas variáveis públicas. Ele não lê um arquivo `.env` e não contém token.
 
-## Builds
+## Como gerar builds
 
-A development build on a machine that already has the native SDK:
+Um build de desenvolvimento, numa máquina que já tenha o SDK nativo:
 
 ```sh
 npm run android
 npm run ios
 ```
 
-On Windows, `npm run android` can fail while compiling `react-native-worklets` if Git and the system still enforce the 260-character path limit. Enabling long paths, or building from a shorter directory, is a machine setup step. It is not configured in this repository.
+No Windows, `npm run android` pode falhar ao compilar `react-native-worklets` se o Git e o sistema ainda impuserem o limite de 260 caracteres no caminho. Ligar caminhos longos, ou compilar a partir de uma pasta mais curta, é ajuste da máquina. Isso não está configurado neste repositório.
 
-There is no `eas.json` and no Expo project id. The GitHub workflow does not compile or publish a binary. The steps to add EAS later, without putting a token in the YAML, are in [`docs/ci.md`](docs/ci.md). The Expo access token, the Android keystore, and the Apple certificate stay outside the repository.
+Não há `eas.json` nem identificador de projeto na Expo. O workflow do GitHub não compila nem publica binário. Os passos para ligar o EAS depois, sem colocar token no YAML, estão em [`docs/ci.md`](docs/ci.md). O token de acesso da Expo, o keystore Android e o certificado Apple ficam fora do repositório.
 
-## Known limitations
+## Limitações conhecidas
 
-- The ledger is Brazilian reais only. A quote never converts a stored amount.
-- The database file is not encrypted. Android sets `allowBackup` to false. On iOS, the app marks the `Documents/SQLite` directory and the database files as excluded from backup when it launches and when it enters the background.
-- Transaction, budget, and category lists render the current month in a scroll view. They are not virtualized.
-- The design-system screen is registered only in development. In a production bundle that route redirects home.
-- The npm package version in `package.json` is `0.0.1`. The version shown in Settings comes from `app.config.ts` and is `1.0.0`.
-- Screen captures are not in the repository. See [Screenshots](#screenshots).
-- Native release binaries are not produced by CI. See [Builds](#builds).
+- O razão é só em reais. A cotação não converte um valor já gravado.
+- O arquivo do banco não é cifrado. No Android, `allowBackup` está desligado. No iOS, o app marca a pasta `Documents/SQLite` e os arquivos do banco como excluídos do backup ao abrir e ao ir para segundo plano.
+- As listas de lançamento, orçamento e categoria desenham o mês corrente num scroll. Elas não são virtualizadas.
+- A tela de design system só entra no navegador em desenvolvimento. Num bundle de produção essa rota volta para o início.
+- A versão do pacote npm em `package.json` é `0.0.1`. A versão mostrada em Ajustes vem de `app.config.ts` e é `1.0.0`.
+- Não há captura de tela no repositório. Veja [Capturas de tela](#capturas-de-tela).
+- A CI não gera binário nativo de release. Veja [Como gerar builds](#como-gerar-builds).
 
 ## Roadmap
 
-Nothing below is scheduled. The current scope stays one person, one device, and an offline ledger.
+Nada abaixo tem data. O escopo atual continua sendo uma pessoa, um aparelho e um razão offline.
 
-Not part of this app, and not started: multiple accounts, transfers between accounts, sign-in, cloud backup as a product feature, statement import, and a home-screen widget.
+Ainda não fazem parte deste app, e não foram começados: várias contas, transferência entre contas, login, backup na nuvem como funcionalidade, importação de extrato e widget na tela inicial.
 
-The next concrete gaps already visible in the repository are: choose a license, add real screen captures, and connect EAS only after an Expo account and the platform credentials exist.
+Os buracos concretos já visíveis no repositório são: escolher uma licença, acrescentar capturas reais e ligar o EAS só depois que existirem a conta Expo e as credenciais das plataformas.
 
-## License
+## Licença
 
-This repository does not include a license file. Until one is added, no open-source license is granted.
+Este repositório não inclui um arquivo de licença. Enquanto ele não existir, nenhuma licença de código aberto está concedida.
