@@ -1,23 +1,12 @@
 # MeuBolso
 
-MeuBolso é um controle financeiro pessoal para Android e iOS. Uma pessoa, um aparelho, offline. O razão é em reais. A cotação é informativa e não converte lançamento.
-
-A interface está em português. Os nomes no código estão em inglês.
+MeuBolso é um controle financeiro pessoal para Android e iOS. Uma pessoa, um aparelho, offline.
 
 ## Objetivo
 
 Registrar receita e despesa em centavos inteiros, ver o mês no início, definir um limite de gasto por categoria de despesa e ler alguns relatórios a partir do mesmo banco local. A cotação da Frankfurter pode ser consultada quando há rede. Ela não altera o razão.
 
 O produto não tem contas, transferência, login, sincronização na nuvem, importação de extrato nem widget.
-
-## Capturas de tela
-
-Não há captura de tela neste repositório. As únicas imagens entregues com o app são os ícones:
-
-- [`assets/icon.png`](assets/icon.png)
-- [`assets/adaptive-icon.png`](assets/adaptive-icon.png)
-
-São ícones, não telas do início, dos lançamentos, dos orçamentos ou dos relatórios. Coloque capturas reais em `docs/screenshots/` antes de tratar esta página como um portfólio visual.
 
 ## Funcionalidades
 
