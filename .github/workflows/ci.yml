@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Qualidade
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      EXPO_NO_TELEMETRY: '1'
+      EXPO_PUBLIC_APP_ENV: development
+      EXPO_PUBLIC_EXCHANGE_API_URL: https://api.frankfurter.dev
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Instalar dependências
+        id: install
+        run: npm ci
+
+      - name: Verificar TypeScript
+        if: steps.install.outcome == 'success'
+        run: npm run typecheck
+
+      - name: Verificar ESLint
+        if: steps.install.outcome == 'success'
+        run: npm run lint
+
+      - name: Verificar formatação
+        if: steps.install.outcome == 'success'
+        run: npm run format:check
+
+      - name: Executar testes
+        if: steps.install.outcome == 'success'
+        run: npm test -- --ci --watchAll=false
